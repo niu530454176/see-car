@@ -1,3 +1,6 @@
+@charset "UTF-8";
+/*定义一个宽高的混入*/
+/*定义一个绝对定位的混入*/
 body {
   background: url("../images/bg.jpg");
 }
@@ -34,7 +37,6 @@ header .logo-4 {
   background: url("../images/header-logo4.png") no-repeat left center;
   width: 130px;
   height: 102px;
-  position: absolute;
   width: 440px;
   height: 960px;
   padding-left: 110px;
