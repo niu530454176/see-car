@@ -37,8 +37,9 @@ header .logo-4 {
   background: url("../images/header-logo4.png") no-repeat left center;
   width: 130px;
   height: 102px;
-  width: 440px;
-  height: 960px;
+  position: absolute;
+  top: 440px;
+  left: 960px;
   padding-left: 110px;
   text-align: left;
   margin-right: 10px;

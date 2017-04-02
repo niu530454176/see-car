@@ -7,16 +7,18 @@ $orange: #f63;
 $yellow: #fc0;
 $opcity: rgba(255, 255, 255, 0);
 /*定义一个宽高的混入*/
-@mixin box-size($width, $height){
-        width: ($width);
-        height: ($height);
+@mixin box-size($width, $height) {
+    width: ($width);
+    height: ($height);
 }
+
 /*定义一个绝对定位的混入*/
-@mixin box-move($top, $left){
+@mixin box-move($top, $left) {
     position: absolute;
     top: ($top);
     left: ($left);
 }
+
 body {
     background: url("../images/bg.jpg");
 }
@@ -31,7 +33,8 @@ header {
         margin-top: 50px;
     }
     .logo-2 {
-        @include box-size(610px, 194px);        background: url("../images/header-logo2.png");
+        @include box-size(610px, 194px);
+        background: url("../images/header-logo2.png");
         @include box-move(200px, 50px);
     }
     .logo-3 {
@@ -42,7 +45,7 @@ header {
     .logo-4 {
         background: url("../images/header-logo4.png") no-repeat left center;
         @include box-size(130px, 102px);
-        @include box-size(440px, 960px);
+        @include box-move(440px, 960px);
         padding-left: 110px;
         text-align: left;
         margin-right: 10px;
