@@ -7,11 +7,28 @@ $orange: #f63;
 $yellow: #fc0;
 $opcity: rgba(255, 255, 255, 0);
 /*定义一个宽高的混入*/
-@mixin box-size($width, $height) {
-    width: ($width);
-    height: ($height);
+/*在混入引入的时候引入变量一定不要添加逗号","不然会报错*/
+$list: width height line-height bordius;
+@mixin box($wides){
+    @if length($wides) == 1{
+        #{nth($list, 1)}: nth($wides, 1);
+    }
+    @else if length($wides) ==2 {
+        #{nth($list, 1)}: nth($wides, 1);
+        #{nth($list, 2)}: nth($wides, 2);
+    }
+    @else if length($wides) ==3 {
+        #{nth($list, 1)}: nth($wides, 1);
+        #{nth($list, 2)}: nth($wides, 2);
+        #{nth($list, 3)}: nth($wides, 3);
+    }
+    @else {
+        #{nth($list, 1)}: nth($wides, 1);
+        #{nth($list, 2)}: nth($wides, 2);
+        #{nth($list, 3)}: nth($wides, 3);
+        #{nth($list, 4)}: nth($wides, 4);
+    }
 }
-
 /*定义一个绝对定位的混入*/
 @mixin box-move($top, $left) {
     position: absolute;
@@ -24,27 +41,27 @@ body {
 }
 
 header {
-    @include box-size(1200px, 566px);
+    @include box(1200px 566px);
     margin: auto;
     position: relative;
     .logo-1 {
-        @include box-size(164px, 60px);
+        @include box(164px 60px);
         background: url("../images/header-logo1.png");
         margin-top: 50px;
     }
     .logo-2 {
-        @include box-size(610px, 194px);
+        @include box(610px 194px);
         background: url("../images/header-logo2.png");
         @include box-move(200px, 50px);
     }
     .logo-3 {
-        @include box-size(480px, 216px);
+        @include box(480px 216px);
         background: url("../images/header-logo3.png");
         @include box-move(200px, 754px);
     }
     .logo-4 {
         background: url("../images/header-logo4.png") no-repeat left center;
-        @include box-size(130px, 102px);
+        @include box(130px 102px);
         @include box-move(440px, 960px);
         padding-left: 110px;
         text-align: left;
@@ -78,7 +95,7 @@ nav {
         }
         li {
             display: inline-block;
-            @include box-size(150px, 76px);
+            @include box(150px 76px);
             font-size: 18px;
             text-align: right;
             background: url("../images/list-logo.png") no-repeat left center;
@@ -95,3 +112,4 @@ nav {
         }
     }
 }
+
