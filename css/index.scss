@@ -6,63 +6,107 @@ $red: #fff;
 $orange: #f63;
 $yellow: #fc0;
 $opcity: rgba(255, 255, 255, 0);
-/*定义一个宽高的混入*/
-/*在混入引入的时候引入变量一定不要添加逗号","不然会报错*/
-$list: width height line-height bordius;
+/*定义一个宽高的混入box加了单位就是本来的单位不加单位会默认加上px*/
+/*整体框架的思路是先判断传入是几个数每个数有每个数的规则*/
+/*然后判断传入的数有没有单位如果没有单位会默认加上设定好的px*/
+/*如果有单位则使用加上的单位*/
+/*使用私有变量不使用全局变量*/
 @mixin box($wides){
+    $list: width height line-height bordius;
     @if length($wides) == 1{
-        #{nth($list, 1)}: nth($wides, 1);
+        @if unitless(nth($wides, 1)) {
+            #{nth($list, 1)}: 1px * nth($wides, 1);
+        }
+        @else {
+            #{nth($list, 1)}: nth($wides, 1);
+        }
     }
-    @else if length($wides) ==2 {
-        #{nth($list, 1)}: nth($wides, 1);
-        #{nth($list, 2)}: nth($wides, 2);
+    @if length($wides) ==2 {
+        @if unitless(nth($wides, 1)) {
+            #{nth($list, 1)}: 1px * nth($wides, 1);
+            #{nth($list, 2)}: 1px * nth($wides, 2);
+        }
+        @else {
+            #{nth($list, 1)}: nth($wides, 1);
+            #{nth($list, 2)}: nth($wides, 2);
+        }
     }
-    @else if length($wides) ==3 {
-        #{nth($list, 1)}: nth($wides, 1);
-        #{nth($list, 2)}: nth($wides, 2);
-        #{nth($list, 3)}: nth($wides, 3);
+    @if length($wides) ==3 {
+        @if unitless(nth($wides, 1)) {
+        #{nth($list, 1)}:1px *  nth($wides, 1);
+        #{nth($list, 2)}:1px *  nth($wides, 2);
+        #{nth($list, 3)}:1px *  nth($wides, 3);
     }
     @else {
         #{nth($list, 1)}: nth($wides, 1);
         #{nth($list, 2)}: nth($wides, 2);
         #{nth($list, 3)}: nth($wides, 3);
-        #{nth($list, 4)}: nth($wides, 4);
+    }
+    }
+    @if length($wides) ==4{
+        @if unitless(nth($wides, 1)) {
+            #{nth($list, 1)}:1px *  nth($wides, 1);
+            #{nth($list, 2)}:1px *  nth($wides, 2);
+            #{nth($list, 3)}:1px *  nth($wides, 3);
+            #{nth($list, 4)}:1px *  nth($wides, 4);
+        }
+        @else {
+            #{nth($list, 1)}: nth($wides, 1);
+            #{nth($list, 2)}: nth($wides, 2);
+            #{nth($list, 3)}: nth($wides, 3);
+            #{nth($list, 4)}: nth($wides, 4);
+        }
     }
 }
-/*定义一个绝对定位的混入*/
-@mixin box-move($top, $left) {
-    position: absolute;
-    top: ($top);
-    left: ($left);
-}
 
+/*定义一个绝对定位的混入box-move无需加单位*/
+@mixin box-move($x, $y) {
+    @if unitless($x) {
+        $x: 1px * $x;
+    }
+    @if unitless($y) {
+        $y: 1px * $y;
+    }
+    position: absolute;
+    top: $x;
+    left: $y;
+}
+/*定义一个图片路径的混入bg*/
+@mixin bg1($location){
+    background: url('../images/#{$location}');
+}
+/*定义一个图片路径的混入不平铺左中心定位*/
+@mixin bg2($location){
+    background: url('../images/#{$location}') no-repeat left center;
+}
 body {
-    background: url("../images/bg.jpg");
+    @include bg1('bg.jpg')
 }
 
 header {
-    @include box(1200px 566px);
+    @include box(1200 566);
     margin: auto;
     position: relative;
     .logo-1 {
-        @include box(164px 60px);
-        background: url("../images/header-logo1.png");
+        @include box(164 60);
+        @include bg1('header-logo1.png');
         margin-top: 50px;
     }
     .logo-2 {
-        @include box(610px 194px);
-        background: url("../images/header-logo2.png");
-        @include box-move(200px, 50px);
+        @include box(610 194);
+        @include box-move(200, 50);
+        @include bg1('header-logo2.png');
     }
     .logo-3 {
-        @include box(480px 216px);
-        background: url("../images/header-logo3.png");
-        @include box-move(200px, 754px);
+        @include box(480 216);
+        @include box-move(200, 754);
+        @include bg1('header-logo3.png');
     }
     .logo-4 {
-        background: url("../images/header-logo4.png") no-repeat left center;
-        @include box(130px 102px);
-        @include box-move(440px, 960px);
+        @include box(130 102);
+        @include box-move(440, 960);
+        /*使用混入背景的时候空格后面可以添加需要的样式*/
+        @include bg2('header-logo4.png');
         padding-left: 110px;
         text-align: left;
         margin-right: 10px;
@@ -83,24 +127,25 @@ header {
 }
 
 nav {
-    background: url("../images/nav-bg.jpg");
+    @include bg1('nav-bg.jpg');
     ul {
-        width: 1200px;
+        @include box(1200);
         margin: auto;
         font-size: 0;
         text-align: center;
         .nav-1 {
-            width: 90px;
+            @include box(90);
             background: none;
         }
         li {
+            @include box(150 76);
+            @include bg2('list-logo.png');
             display: inline-block;
-            @include box(150px 76px);
             font-size: 18px;
             text-align: right;
-            background: url("../images/list-logo.png") no-repeat left center;
             margin-right: 30px;
             line-height: 76px;
+            font-weight: bold;
             a {
                 color: $white;
                 &:hover {
@@ -112,4 +157,3 @@ nav {
         }
     }
 }
-

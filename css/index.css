@@ -1,7 +1,12 @@
 @charset "UTF-8";
-/*定义一个宽高的混入*/
-/*在混入引入的时候引入变量一定不要添加逗号","不然会报错*/
-/*定义一个绝对定位的混入*/
+/*定义一个宽高的混入box加了单位就是本来的单位不加单位会默认加上px*/
+/*整体框架的思路是先判断传入是几个数每个数有每个数的规则*/
+/*然后判断传入的数有没有单位如果没有单位会默认加上设定好的px*/
+/*如果有单位则使用加上的单位*/
+/*使用私有变量不使用全局变量*/
+/*定义一个绝对定位的混入box-move无需加单位*/
+/*定义一个图片路径的混入bg*/
+/*定义一个图片路径的混入不平铺左中心定位*/
 body {
   background: url("../images/bg.jpg");
 }
@@ -21,26 +26,27 @@ header .logo-1 {
 header .logo-2 {
   width: 610px;
   height: 194px;
-  background: url("../images/header-logo2.png");
   position: absolute;
   top: 200px;
   left: 50px;
+  background: url("../images/header-logo2.png");
 }
 header .logo-3 {
   width: 480px;
   height: 216px;
-  background: url("../images/header-logo3.png");
   position: absolute;
   top: 200px;
   left: 754px;
+  background: url("../images/header-logo3.png");
 }
 header .logo-4 {
-  background: url("../images/header-logo4.png") no-repeat left center;
   width: 130px;
   height: 102px;
   position: absolute;
   top: 440px;
   left: 960px;
+  /*使用混入背景的时候空格后面可以添加需要的样式*/
+  background: url("../images/header-logo4.png") no-repeat left center;
   padding-left: 110px;
   text-align: left;
   margin-right: 10px;
@@ -73,14 +79,15 @@ nav ul .nav-1 {
   background: none;
 }
 nav ul li {
-  display: inline-block;
   width: 150px;
   height: 76px;
+  background: url("../images/list-logo.png") no-repeat left center;
+  display: inline-block;
   font-size: 18px;
   text-align: right;
-  background: url("../images/list-logo.png") no-repeat left center;
   margin-right: 30px;
   line-height: 76px;
+  font-weight: bold;
 }
 nav ul li a {
   color: #fff;
