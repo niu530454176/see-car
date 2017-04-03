@@ -1,12 +1,14 @@
 @charset "UTF-8";
-/*定义一个宽高的混入box加了单位就是本来的单位不加单位会默认加上px*/
-/*整体框架的思路是先判断传入是几个数每个数有每个数的规则*/
-/*然后判断传入的数有没有单位如果没有单位会默认加上设定好的px*/
-/*如果有单位则使用加上的单位*/
-/*使用私有变量不使用全局变量*/
 /*定义一个绝对定位的混入box-move无需加单位*/
-/*定义一个图片路径的混入bg*/
-/*定义一个图片路径的混入不平铺左中心定位*/
+.box {
+  border-width: 200px;
+  border-color: red transparent transparent transparent;
+  border-style: solid dashed dashed dashed;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 body {
   background: url("../images/bg.jpg");
 }

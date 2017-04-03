@@ -6,11 +6,11 @@ $red: #fff;
 $orange: #f63;
 $yellow: #fc0;
 $opcity: rgba(255, 255, 255, 0);
-/*定义一个宽高的混入box加了单位就是本来的单位不加单位会默认加上px*/
-/*整体框架的思路是先判断传入是几个数每个数有每个数的规则*/
-/*然后判断传入的数有没有单位如果没有单位会默认加上设定好的px*/
-/*如果有单位则使用加上的单位*/
-/*使用私有变量不使用全局变量*/
+//定义一个宽高的混入box加了单位就是本来的单位不加单位会默认加上px
+//整体框架的思路是先判断传入是几个数每个数有每个数的规则
+//然后判断传入的数有没有单位如果没有单位会默认加上设定好的px
+//如果有单位则使用加上的单位
+//使用私有变量不使用全局变量
 @mixin box($wides){
     $list: width height line-height bordius;
     @if length($wides) == 1{
@@ -71,13 +71,47 @@ $opcity: rgba(255, 255, 255, 0);
     top: $x;
     left: $y;
 }
-/*定义一个图片路径的混入bg*/
+//定义一个图片路径的混入bg
 @mixin bg1($location){
     background: url('../images/#{$location}');
 }
-/*定义一个图片路径的混入不平铺左中心定位*/
+//定义一个图片路径的混入不平铺左中心定位
 @mixin bg2($location){
     background: url('../images/#{$location}') no-repeat left center;
+}
+
+//定义一个三角的函数 实现不同方向的三角加兼容ie6
+//第一个参数传入方向
+//第二个参数传入大小
+//第三个参数传入颜色
+//注意:传入参数中间必须逗号分隔
+@mixin triangle($x, $y:10px, $z:white ){
+    @if $x == "top"{
+        border-width: $y;
+        border-color:transparent transparent $z transparent;
+        border-style: dashed dashed solid dashed;
+    }
+    @else if $x == "bottom"{
+        border-width: $y;
+        border-color: $z transparent transparent transparent;
+        border-style: solid dashed dashed dashed;
+    }
+    @else if $x == "left"{
+        border-width: $y;
+        border-color:transparent $z transparent transparent;
+        border-style: dashed solid dashed dashed;
+    }
+    @else if $x == "right"{
+        border-width: $y;
+        border-color:transparent transparent transparent $z;
+        border-style: dashed dashed dashed solid;
+    }
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+.box{
+    @include triangle(bottom, 200px, red);
 }
 body {
     @include bg1('bg.jpg')
