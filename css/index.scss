@@ -21,7 +21,7 @@ $opcity: rgba(255, 255, 255, 0);
             #{nth($list, 1)}: nth($wides, 1);
         }
     }
-    @if length($wides) ==2 {
+    @else if length($wides) ==2 {
         @if unitless(nth($wides, 1)) {
             #{nth($list, 1)}: 1px * nth($wides, 1);
             #{nth($list, 2)}: 1px * nth($wides, 2);
@@ -31,7 +31,7 @@ $opcity: rgba(255, 255, 255, 0);
             #{nth($list, 2)}: nth($wides, 2);
         }
     }
-    @if length($wides) ==3 {
+    @else if length($wides) ==3 {
         @if unitless(nth($wides, 1)) {
         #{nth($list, 1)}:1px *  nth($wides, 1);
         #{nth($list, 2)}:1px *  nth($wides, 2);
@@ -43,7 +43,7 @@ $opcity: rgba(255, 255, 255, 0);
         #{nth($list, 3)}: nth($wides, 3);
     }
     }
-    @if length($wides) ==4{
+    @else if length($wides) ==4{
         @if unitless(nth($wides, 1)) {
             #{nth($list, 1)}:1px *  nth($wides, 1);
             #{nth($list, 2)}:1px *  nth($wides, 2);
